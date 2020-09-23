@@ -776,10 +776,10 @@ def start_if_true(error):
             if not x.is_playing():
                 if str(x.guild.id) == k:
                     if int(v[-1]) <= 5: 
-                        x.play(FFmpegPCMAudio(f"{os.getcwd()}/music/{v[:-1]}.mp3"), after=start_if_true)
+                        x.play(FFmpegPCMAudio(f"{os.path.dirname(os.path.realpath(__file__))}/music/{v[:-1]}.mp3"), after=start_if_true)
                         repeat_music_servers[k] = v[:-1] + str(int(v[-1]) + 1)
                         return
-            subprocess.call(f"rm {os.getcwd()}/music/{v[:-1]}.mp3", shell=True)
+            subprocess.call(f"rm {os.path.dirname(os.path.realpath(__file__))}/music/{v[:-1]}.mp3", shell=True)
 
 
 #Play command
@@ -819,13 +819,13 @@ async def play(ctx, *, link):
     voice_name_numbers[str(ctx.guild.id)] = str(video_name_number)
     await ctx.channel.trigger_typing()
     play_message_one = await ctx.send("**Please wait up to 10 seconds while the song is being prepared for playback.**")
-    subprocess.call(f"youtube-dl --extract-audio --audio-format mp3 -o {os.getcwd()}/tribuntu/music/" + (str(video_name_number)) + ".mp3 " + f'"ytsearch:{link}"', shell=True)
+    subprocess.call(f"youtube-dl --extract-audio --audio-format mp3 -o {os.path.dirname(os.path.realpath(__file__))}/tribuntu/music/" + (str(video_name_number)) + ".mp3 " + f'"ytsearch:{link}"', shell=True)
     m = await ctx.send(f"Joining voice channel")
     play_control_messages[str(ctx.guild.id)] = m
     play_control_message = m 
 #    duration = subprocess.getoutput("youtube-dl --get-duration " + link)
     global source
-    source = FFmpegPCMAudio(f"{os.getcwd()}/music/{video_name_number}.mp3")
+    source = FFmpegPCMAudio(f"{os.path.dirname(os.path.realpath(__file__))}/music/{video_name_number}.mp3")
     await play_message_one.delete()
     global voice
     voice = await channel.connect()
