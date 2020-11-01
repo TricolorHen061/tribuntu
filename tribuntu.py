@@ -819,7 +819,7 @@ async def play(ctx, *, link):
     voice_name_numbers[str(ctx.guild.id)] = str(video_name_number)
     await ctx.channel.trigger_typing()
     play_message_one = await ctx.send("**Please wait up to 10 seconds while the song is being prepared for playback.**")
-    subprocess.call(f"youtube-dl --extract-audio --audio-format mp3 -o {os.path.dirname(os.path.realpath(__file__))}/tribuntu/music/" + (str(video_name_number)) + ".mp3 " + f'"ytsearch:{link}"', shell=True)
+    subprocess.call(f"youtube-dl --extract-audio --audio-format mp3 -o {os.path.dirname(os.path.realpath(__file__))}/music/" + (str(video_name_number)) + ".mp3 " + f'"ytsearch:{link}"', shell=True)
     m = await ctx.send(f"Joining voice channel")
     play_control_messages[str(ctx.guild.id)] = m
     play_control_message = m 
